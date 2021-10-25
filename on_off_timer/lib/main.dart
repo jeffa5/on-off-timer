@@ -181,32 +181,33 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
                     repeat = enabled!;
                   });
                 }),
-            Row(children: <Widget>[
-              const Text("Off time multiplier"),
-              const Spacer(),
-              Text(
-                offMultiplier.toString(),
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      offMultiplier += 0.5;
-                    });
-                  },
-                  icon: const Icon(Icons.add)),
-              IconButton(
-                  onPressed: offMultiplier > 0
-                      ? () {
-                          setState(() {
-                            if (offMultiplier > 0) {
-                              offMultiplier -= 0.5;
+            ListTile(
+                title: const Text("Off time multiplier"),
+                trailing:
+                    Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  Text(
+                    offMultiplier.toString(),
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          offMultiplier += 0.5;
+                        });
+                      },
+                      icon: const Icon(Icons.add)),
+                  IconButton(
+                      onPressed: offMultiplier > 0
+                          ? () {
+                              setState(() {
+                                if (offMultiplier > 0) {
+                                  offMultiplier -= 0.5;
+                                }
+                              });
                             }
-                          });
-                        }
-                      : null,
-                  icon: const Icon(Icons.remove)),
-            ]),
+                          : null,
+                      icon: const Icon(Icons.remove)),
+                ])),
           ],
         ),
       ),
