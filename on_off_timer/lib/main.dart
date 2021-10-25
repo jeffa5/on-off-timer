@@ -45,21 +45,28 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
       setState(() {});
     });
 
+    int minutesElapsed;
     int secondsElapsed;
     int millisecondsElapsed;
 
     if (isOn) {
+      minutesElapsed = sw.elapsed.inMinutes;
       secondsElapsed = sw.elapsed.inSeconds;
       millisecondsElapsed = sw.elapsed.inMilliseconds;
     } else {
       // !isOn
       Duration duration = Duration(milliseconds: millisToWait) - t.elapsed;
+      minutesElapsed = duration.inMinutes;
       secondsElapsed = duration.inSeconds;
       millisecondsElapsed = duration.inMilliseconds;
     }
 
     if (secondsElapsed > 0) {
       millisecondsElapsed %= secondsElapsed * 1000;
+    }
+
+    if (minutesElapsed > 0) {
+      secondsElapsed %= minutesElapsed * 60;
     }
 
     millisecondsElapsed ~/= 10;
@@ -150,6 +157,12 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
       }
     }
 
+    String minutesSecondsElapsed = "";
+    if (minutesElapsed > 0) {
+      minutesSecondsElapsed += "$minutesElapsed:";
+    }
+    minutesSecondsElapsed += secondsElapsed.toString();
+
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text(widget.title)),
@@ -164,7 +177,7 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
             ),
             Text.rich(TextSpan(children: <InlineSpan>[
               TextSpan(
-                text: '$secondsElapsed',
+                text: minutesSecondsElapsed,
                 style: Theme.of(context).textTheme.headline1,
               ),
               TextSpan(
@@ -173,6 +186,7 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
               ),
             ])),
             action,
+            const Divider(),
             CheckboxListTile(
                 title: const Text("Repeat"),
                 value: repeat,
@@ -181,6 +195,7 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
                     repeat = enabled!;
                   });
                 }),
+            const Divider(),
             ListTile(
                 title: const Text("Off time multiplier"),
                 trailing:
@@ -208,6 +223,7 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
                           : null,
                       icon: const Icon(Icons.remove)),
                 ])),
+            const Divider(),
           ],
         ),
       ),
