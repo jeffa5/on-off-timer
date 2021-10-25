@@ -227,6 +227,8 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
                 ])),
             const Divider(),
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(20.0)),
                 onPressed: () {
                   setState(() {
                     isOn = true;
