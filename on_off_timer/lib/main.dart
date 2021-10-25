@@ -61,12 +61,22 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
       millisecondsElapsed = duration.inMilliseconds;
     }
 
+    if (millisecondsElapsed < 0) {
+      millisecondsElapsed = 0;
+    }
+
     if (secondsElapsed > 0) {
       millisecondsElapsed %= secondsElapsed * 1000;
+    }
+    if (secondsElapsed < 0) {
+      secondsElapsed = 0;
     }
 
     if (minutesElapsed > 0) {
       secondsElapsed %= minutesElapsed * 60;
+    }
+    if (minutesElapsed < 0) {
+      minutesElapsed = 0;
     }
 
     millisecondsElapsed ~/= 10;
