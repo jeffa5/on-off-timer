@@ -36,6 +36,8 @@
           # gdk
           atk
 
+          openjdk17
+
           rnix-lsp
           nixpkgs-fmt
         ];
