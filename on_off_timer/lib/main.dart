@@ -171,6 +171,7 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const Spacer(),
             Text(
               state,
               style: Theme.of(context).textTheme.headline4,
@@ -186,6 +187,7 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
               ),
             ])),
             action,
+            const Spacer(),
             const Divider(),
             CheckboxListTile(
                 title: const Text("Repeat"),
@@ -224,20 +226,21 @@ class _OnOffTimerPageState extends State<OnOffTimerPage> {
                       icon: const Icon(Icons.remove)),
                 ])),
             const Divider(),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    isOn = true;
+                    sw.stop();
+                    sw.reset();
+                    t.stop();
+                    sw.stop();
+                  });
+                },
+                child: const Text("Reset", style: TextStyle(fontSize: 15))),
+            const Spacer(),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              isOn = true;
-              sw.stop();
-              sw.reset();
-              t.stop();
-              sw.stop();
-            });
-          },
-          child: const Icon(Icons.close)),
     );
   }
 }
